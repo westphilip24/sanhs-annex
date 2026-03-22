@@ -372,6 +372,7 @@ async function seed(db: any) {
 
 // Run with: npx tsx scripts/seed.ts
 // The DB binding is injected at runtime by Next.js / CF Pages
-declare const globalThis: { __D1_Binding__?: D1Database };
-const db = drizzle((globalThis as any).__D1_Binding__ || process.env.DB as any, { schema });
+// For local development, use wrangler: wrangler d1 execute sanhs-annex --local --file=./drizzle/*.sql
+declare const globalThis: { __D1_Binding__?: Fetcher };
+const db = drizzle((globalThis as any).__D1_Binding__ as any || process.env.DB as any, { schema });
 seed(db).catch(console.error);

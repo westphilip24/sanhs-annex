@@ -1,22 +1,5 @@
 import Link from "next/link";
-
-// Placeholder data — will be replaced with DB queries
-const announcements = [
-  {
-    id: "1",
-    title: "Mid-Year Enrollment Now Open for SY 2025-2026",
-    excerpt: "Enroll now for second semester SY 2025-2026",
-    isPinned: true,
-    target: "ALL",
-  },
-  {
-    id: "2",
-    title: "Grand Alumni Homecoming — December 5, 2025",
-    excerpt: "Calling all alumni! Join us on December 5, 2025",
-    isPinned: true,
-    target: "ALL",
-  },
-];
+import { HeroCarousel, AnnouncementBanner, CTASection, WelcomeMat } from "@/components/promotional-banners";
 
 const events = [
   {
@@ -82,85 +65,11 @@ const news = [
 export default function HomePage() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-[var(--sanhs-green)] text-white overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, white 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }} />
-        </div>
+      {/* Hero Carousel */}
+      <HeroCarousel />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-28 text-center">
-          {/* School badge */}
-          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur rounded-full px-5 py-2 mb-8">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-              <span className="text-sm font-bold">SA</span>
-            </div>
-            <span className="text-sm font-medium">DepEd Region X — Northern Mindanao</span>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            San Andres National High School
-            <br />
-            <span className="text-[var(--sanhs-gold)]">Cabadiangan Annex</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8">
-            Serving the youth of Kadingilan, Bukidnon with quality public education since 2015. 
-            Nurturing minds, building futures.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/enrollment"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--sanhs-gold)] px-6 py-3 text-base font-bold text-[var(--sanhs-green-dark)] shadow-lg transition-transform hover:scale-105"
-            >
-              Enroll Now — SY 2025-2026
-              <span aria-hidden>→</span>
-            </Link>
-            <Link
-              href="/portal"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white hover:text-[var(--sanhs-green)]"
-            >
-              Student / Parent Portal
-            </Link>
-          </div>
-        </div>
-
-        {/* Wave divider */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-12">
-            <path d="M0 60V30C240 0 480 60 720 30C960 0 1200 60 1440 30V60H0Z" fill="white" />
-          </svg>
-        </div>
-      </section>
-
-      {/* Announcement Banner */}
-      {announcements.filter(a => a.isPinned).length > 0 && (
-        <section className="bg-[var(--sanhs-gold)]/10 border-b border-[var(--sanhs-gold)]/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <div className="flex items-center gap-3">
-              <span className="flex-shrink-0 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[var(--sanhs-gold-dark)]">
-                <span className="inline-block w-2 h-2 rounded-full bg-[var(--sanhs-gold)] animate-pulse" />
-                Announcement
-              </span>
-              <div className="flex-1 space-y-1">
-                {announcements.filter(a => a.isPinned).map((a) => (
-                  <Link
-                    key={a.id}
-                    href="/news"
-                    className="block text-sm font-medium text-[var(--sanhs-green-dark)] hover:text-[var(--sanhs-green)] transition-colors"
-                  >
-                    📌 {a.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Announcement Banner Strip */}
+      <AnnouncementBanner />
 
       {/* Stats */}
       <section className="py-12 bg-white">
@@ -389,31 +298,24 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[var(--sanhs-green)] text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Join Our School Community?
-          </h2>
-          <p className="text-white/80 max-w-xl mx-auto mb-8">
-            Enrollment for School Year 2025-2026 is now open. New students, 
-            transferees, and shiftees are welcome!
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/enrollment"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--sanhs-gold)] px-6 py-3 text-base font-bold text-[var(--sanhs-green-dark)] shadow-lg transition-transform hover:scale-105"
-            >
-              Start Enrollment Inquiry
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-white px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white hover:text-[var(--sanhs-green)]"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title="Ready to Join Our School Community?"
+        description="Enrollment for School Year 2025-2026 is now open. New students, transferees, and shiftees are welcome!"
+        primaryCta="Start Enrollment Inquiry"
+        primaryHref="/enrollment"
+        secondaryCta="Contact Us"
+        secondaryHref="/contact"
+      />
+
+      {/* Welcome Mat for first-time visitors */}
+      <WelcomeMat
+        schoolName="SANHS Annex"
+        message="Welcome to San Andres National High School — Cabadiangan Annex! We're glad you're here. Start your enrollment journey or explore our academic programs."
+        cta="Enroll Now"
+        ctaHref="/enrollment"
+        secondaryCta="Learn About Our Programs"
+        secondaryHref="/academics"
+      />
     </div>
   );
 }

@@ -6,9 +6,28 @@ import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+type UserRole = "ADMIN" | "TEACHER" | "PARENT" | "STUDENT";
+
+// Extend the built-in types with our custom fields
+declare module "next-auth" {
+  interface Session {
+    user: {
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      role?: UserRole;
+      id?: string;
+    };
+  }
+}
+
+/**
+ * Auth configuration for server-side (API routes, Server Components)
+ * Uses DrizzleAdapter + bcryptjs — Node.js runtime only
+ */
+const serverConfig = {
   adapter: DrizzleAdapter(createDb(process.env.DB as unknown as D1Database)),
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" as const },
   pages: {
     signIn: "/login",
     error: "/login",
@@ -47,19 +66,39 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
-        token.role = (user as any).role;
+        token.role = user.role;
         token.id = user.id;
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
+        session.user.role = token.role;
+        session.user.id = token.id;
       }
       return session;
     },
   },
-});
+};
+
+/**
+ * Auth configuration for Edge runtime (middleware)
+ * Uses JWT strategy only — NO bcrypt, NO adapter
+ */
+const edgeConfig = {
+  session: { strategy: "jwt" as const },
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+  providers: [],
+  trustHost: true,
+};
+
+// Server-side: full NextAuth with credentials + Drizzle
+export const { handlers, auth, signIn, signOut } = NextAuth(serverConfig);
+
+// Edge middleware: JWT-only (no bcrypt, no adapter)
+export const { handlers: edgeHandlers, auth: edgeAuth } = NextAuth(edgeConfig);

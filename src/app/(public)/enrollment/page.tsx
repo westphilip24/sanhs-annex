@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import EnrollmentForm from "@/components/enrollment-form";
 
 export const metadata: Metadata = {
   title: "Enrollment",
@@ -47,129 +48,7 @@ export default function EnrollmentPage() {
               Fill out this form and our admissions team will contact you within 2–3 business days.
             </p>
 
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-              {/* Learner Info */}
-              <fieldset className="border border-gray-100 rounded-xl p-5">
-                <legend className="text-sm font-bold text-[var(--sanhs-green)] px-2">
-                  Learner Information
-                </legend>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">First Name *</label>
-                    <input type="text" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="First name" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Last Name *</label>
-                    <input type="text" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="Last name" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Date of Birth *</label>
-                    <input type="date" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Gender *</label>
-                    <select required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]">
-                      <option value="">Select gender</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">LRN (if returning)</label>
-                    <input type="text" className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="12-digit LRN" maxLength={12} />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Previous School</label>
-                    <input type="text" className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="Name of previous school" />
-                  </div>
-                </div>
-              </fieldset>
-
-              {/* Guardian Info */}
-              <fieldset className="border border-gray-100 rounded-xl p-5">
-                <legend className="text-sm font-bold text-[var(--sanhs-green)] px-2">
-                  Parent / Guardian Information
-                </legend>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Guardian Name *</label>
-                    <input type="text" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="Full name" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Relationship *</label>
-                    <select required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]">
-                      <option value="">Select</option>
-                      <option>Mother</option>
-                      <option>Father</option>
-                      <option>Grandparent</option>
-                      <option>Sibling</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Phone Number *</label>
-                    <input type="tel" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="+63 9XX XXX XXXX" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
-                    <input type="email" className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="optional@email.com" />
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Complete Address *</label>
-                  <input type="text" required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]" placeholder="House No., Street, Barangay, Municipality" />
-                </div>
-              </fieldset>
-
-              {/* Enrollment Preference */}
-              <fieldset className="border border-gray-100 rounded-xl p-5">
-                <legend className="text-sm font-bold text-[var(--sanhs-green)] px-2">
-                  Enrollment Preference
-                </legend>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Grade Level *</label>
-                    <select required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]">
-                      <option value="">Select grade</option>
-                      <option>Grade 7</option>
-                      <option>Grade 8</option>
-                      <option>Grade 9</option>
-                      <option>Grade 10</option>
-                      <option>Grade 11</option>
-                      <option>Grade 12</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">SHS Track (for Grades 11-12)</label>
-                    <select className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]">
-                      <option value="">N/A (JHS)</option>
-                      <option>ABM — Accountancy, Business & Management</option>
-                      <option>HUMSS — Humanities and Social Sciences</option>
-                      <option>HE — Home Economics</option>
-                      <option>SPA — Special Program in the Arts</option>
-                    </select>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Preferred School Year *</label>
-                    <select required className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--sanhs-green)]">
-                      <option>2025-2026</option>
-                      <option>2026-2027</option>
-                    </select>
-                  </div>
-                </div>
-              </fieldset>
-
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-[var(--sanhs-green)] px-4 py-3 text-base font-bold text-white shadow-sm transition-colors hover:bg-[var(--sanhs-green-dark)]"
-              >
-                Submit Enrollment Inquiry
-              </button>
-              <p className="text-xs text-gray-400 text-center">
-                By submitting, you consent to SANHS Annex contacting you regarding your enrollment inquiry. 
-                This is not a guarantee of enrollment.
-              </p>
-            </form>
+            <EnrollmentForm />
           </div>
         </div>
       </section>

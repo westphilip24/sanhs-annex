@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -136,9 +137,9 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          <a href="/" className="hover:text-[var(--sanhs-green)]">
+          <Link href="/" className="hover:text-[var(--sanhs-green)]">
             ← Back to home
-          </a>
+          </Link>
         </p>
       </div>
     </div>

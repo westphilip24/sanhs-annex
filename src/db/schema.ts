@@ -69,7 +69,7 @@ export const users = sqliteTable("users", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
-  role: text("role", { enum: Object.values(UserRole) }).notNull(),
+  role: text("role", { enum: ["ADMIN", "TEACHER", "PARENT", "STUDENT"] as const }).notNull(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   phone: text("phone"),
@@ -97,10 +97,10 @@ export const students = sqliteTable("students", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   lrn: text("lrn").notNull().unique(), // DepEd 12-digit LRN
-  gradeLevel: text("grade_level", { enum: Object.values(GradeLevel) }).notNull(),
+  gradeLevel: text("grade_level", { enum: ["GRADE_7", "GRADE_8", "GRADE_9", "GRADE_10", "GRADE_11", "GRADE_12"] as const }).notNull(),
   section: text("section").notNull(),
-  academicTrack: text("academic_track", { enum: Object.values(AcademicTrack) }),
-  gender: text("gender", { enum: Object.values(Gender) }).notNull(),
+  academicTrack: text("academic_track", { enum: ["ABM", "GAS", "HUMSS", "HE", "SPA", "STEM"] as const }),
+  gender: text("gender", { enum: ["MALE", "FEMALE"] as const }).notNull(),
   dateOfBirth: text("date_of_birth").notNull(),
   address: text("address"),
   motherName: text("mother_name"),
@@ -124,7 +124,7 @@ export const teachers = sqliteTable("teachers", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   employeeId: text("employee_id").notNull().unique(),
-  gender: text("gender", { enum: Object.values(Gender) }).notNull(),
+  gender: text("gender", { enum: ["MALE", "FEMALE"] as const }).notNull(),
   dateOfBirth: text("date_of_birth").notNull(),
   department: text("department"),
   position: text("position").default("Teacher"),
@@ -141,15 +141,15 @@ export const subjects = sqliteTable("subjects", {
   name: text("name").notNull(),
   code: text("code").notNull().unique(),
   description: text("description"),
-  gradeLevel: text("grade_level", { enum: Object.values(GradeLevel) }),
-  track: text("academic_track", { enum: Object.values(AcademicTrack) }), // null = all tracks
+  gradeLevel: text("grade_level", { enum: ["GRADE_7", "GRADE_8", "GRADE_9", "GRADE_10", "GRADE_11", "GRADE_12"] as const }),
+  track: text("academic_track", { enum: ["ABM", "GAS", "HUMSS", "HE", "SPA", "STEM"] as const }), // null = all tracks
   isActive: integer("is_active", { mode: "boolean" }).default(true),
 });
 
 export const classSections = sqliteTable("class_sections", {
   id: text("id").primaryKey(),
   name: text("name").notNull(), // "Balik-Hand 7-A"
-  gradeLevel: text("grade_level", { enum: Object.values(GradeLevel) }).notNull(),
+  gradeLevel: text("grade_level", { enum: ["GRADE_7", "GRADE_8", "GRADE_9", "GRADE_10", "GRADE_11", "GRADE_12"] as const }).notNull(),
   academicYear: text("academic_year").notNull(),
   adviserId: text("adviser_id").references(() => teachers.id),
   maxStudents: integer("max_students").default(45),
@@ -189,7 +189,7 @@ export const studentClassEnrollments = sqliteTable("student_class_enrollments", 
 export const gradingPeriods = sqliteTable("grading_periods", {
   id: text("id").primaryKey(),
   schoolYear: text("school_year").notNull(),
-  quarter: text("quarter", { enum: Object.values(Quarter) }).notNull(),
+  quarter: text("quarter", { enum: ["Q1", "Q2", "Q3", "Q4"] as const }).notNull(),
   startDate: text("start_date").notNull(),
   endDate: text("end_date").notNull(),
   isActive: integer("is_active", { mode: "boolean" }).default(false),
@@ -217,10 +217,10 @@ export const assessments = sqliteTable("assessments", {
     .notNull()
     .references(() => teachers.id),
   title: text("title").notNull(),
-  type: text("type", { enum: Object.values(AssessmentType) }).notNull(),
+  type: text("type", { enum: ["WRITTEN_WORK", "PERFORMANCE_TASK", "QUARTERLY_ASSESSMENT"] as const }).notNull(),
   maxScore: real("max_score").notNull(),
   dueDate: text("due_date"),
-  quarter: text("quarter", { enum: Object.values(Quarter) }).notNull(),
+  quarter: text("quarter", { enum: ["Q1", "Q2", "Q3", "Q4"] as const }).notNull(),
   schoolYear: text("school_year").notNull(),
   createdAt: text("created_at").notNull(),
 });
@@ -290,7 +290,7 @@ export const attendance = sqliteTable("attendance", {
     .notNull()
     .references(() => classSections.id),
   date: text("date").notNull(), // YYYY-MM-DD
-  status: text("status", { enum: Object.values(AttendanceStatus) }).notNull(),
+  status: text("status", { enum: ["PRESENT", "ABSENT", "LATE", "EXCUSED"] as const }).notNull(),
   remarks: text("remarks"),
   recordedById: text("recorded_by_id")
     .notNull()
@@ -306,7 +306,7 @@ export const announcements = sqliteTable("announcements", {
   title: text("title").notNull(),
   content: text("content").notNull(), // Rich text (HTML)
   excerpt: text("excerpt"),
-  target: text("target", { enum: Object.values(AnnouncementTarget) }).default("ALL"),
+  target: text("target", { enum: ["PUBLIC", "STUDENTS", "PARENTS", "TEACHERS", "ALL"] as const }).default("ALL"),
   isPinned: integer("is_pinned", { mode: "boolean" }).default(false),
   isPublished: integer("is_published", { mode: "boolean" }).default(false),
   publishedAt: text("published_at"),
@@ -369,7 +369,7 @@ export const enrollmentInquiries = sqliteTable("enrollment_inquiries", {
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   dateOfBirth: text("date_of_birth").notNull(),
-  gender: text("gender", { enum: Object.values(Gender) }).notNull(),
+  gender: text("gender", { enum: ["MALE", "FEMALE"] as const }).notNull(),
   lrn: text("lrn"), // null if new student
   previousSchool: text("previous_school"),
   // Parent/Guardian
@@ -380,8 +380,8 @@ export const enrollmentInquiries = sqliteTable("enrollment_inquiries", {
   // Address
   address: text("address").notNull(),
   // Enrollment preference
-  gradeLevel: text("grade_level", { enum: Object.values(GradeLevel) }).notNull(),
-  academicTrack: text("academic_track", { enum: Object.values(AcademicTrack) }),
+  gradeLevel: text("grade_level", { enum: ["GRADE_7", "GRADE_8", "GRADE_9", "GRADE_10", "GRADE_11", "GRADE_12"] as const }).notNull(),
+  academicTrack: text("academic_track", { enum: ["ABM", "GAS", "HUMSS", "HE", "SPA", "STEM"] as const }),
   preferredSchoolYear: text("preferred_school_year").notNull(),
   // Status
   status: text("status").default("PENDING"), // PENDING, CONTACTED, ENROLLED, REJECTED
