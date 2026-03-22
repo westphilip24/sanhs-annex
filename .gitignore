@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.*
+.yarn
+
+# Next.js
+.next
+out
+build
+
+# Misc
+.DS_Store
+*.pem
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Cloudflare / Wrangler
+.wrangler
+.dev.vars
+dev.db
+*.db
+
+# Drizzle
+drizzle/meta/*.json
+
+# Editor
+.vscode
+.idea
+
+# OpenCode
+.claude/plugins

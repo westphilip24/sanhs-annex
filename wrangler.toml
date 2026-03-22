@@ -1,0 +1,14 @@
+name = "sanhs-annex"
+compatibility_date = "2025-01-01"
+account_id = ""
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "sanhs-annex"
+database_id = "" # Set after creating: wrangler d1 create sanhs-annex
+
+# KV Namespace for sessions
+[[kv_namespaces]]
+binding = "SESSION_KV"
+id = "" # Set after creating: wrangler kv:namespace create SESSION_KV

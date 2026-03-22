@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* =========================================
+   SANHS ANNEX — Design System
+   Primary: Green #1B5E20 | Gold #C9A84C | Silver #9CA3AF
+   ========================================= */
+
+:root {
+  /* Brand Colors */
+  --sanhs-green: #1B5E20;
+  --sanhs-green-light: #2E7D32;
+  --sanhs-green-dark: #0D3B12;
+  --sanhs-gold: #C9A84C;
+  --sanhs-gold-light: #D4B86A;
+  --sanhs-gold-dark: #A88A3A;
+  --sanhs-silver: #9CA3AF;
+  --sanhs-silver-light: #B4BAC6;
+  --sanhs-silver-dark: #7A8290;
+
+  /* Semantic Tokens */
+  --background: #ffffff;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #1B5E20;
+  --primary-foreground: #ffffff;
+  --secondary: #C9A84C;
+  --secondary-foreground: #171717;
+  --accent: #9CA3AF;
+  --accent-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #1B5E20;
+  --radius: 0.5rem;
+
+  /* Grade Colors */
+  --grade-outstanding: #1B5E20;
+  --grade-very-satisfactory: #2E7D32;
+  --grade-satisfactory: #C9A84C;
+  --grade-fairly-satisfactory: #D97706;
+  --grade-failing: #dc2626;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* SANHS Brand Colors */
+  --color-sanhs-green: var(--sanhs-green);
+  --color-sanhs-green-light: var(--sanhs-green-light);
+  --color-sanhs-gold: var(--sanhs-gold);
+  --color-sanhs-gold-light: var(--sanhs-gold-light);
+  --color-sanhs-silver: var(--sanhs-silver);
+  --color-sanhs-silver-light: var(--sanhs-silver-light);
+
+  /* Grade Colors */
+  --color-grade-outstanding: var(--grade-outstanding);
+  --color-grade-very-satisfactory: var(--grade-very-satisfactory);
+  --color-grade-satisfactory: var(--grade-satisfactory);
+  --color-grade-fairly-satisfactory: var(--grade-fairly-satisfactory);
+  --color-grade-failing: var(--grade-failing);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --card: #1a1a1a;
+    --card-foreground: #ededed;
+    --popover: #1a1a1a;
+    --popover-foreground: #ededed;
+    --primary: #2E7D32;
+    --primary-foreground: #ffffff;
+    --secondary: #C9A84C;
+    --secondary-foreground: #171717;
+    --accent: #9CA3AF;
+    --accent-foreground: #171717;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #262626;
+    --input: #262626;
+    --ring: #2E7D32;
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sanhs-silver);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sanhs-silver-dark);
+}
